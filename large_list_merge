@@ -1,0 +1,18 @@
+# In some cases, software will generate hundreds of tab delimit text files under the same directory.
+# If you want to merge all the tables into one single table, I find a R package for this purpose. 
+# One thing to be sure is that the column should be exactly the same. 
+# I'm sure python could do this easily as well, but I'm not familiar with python. Hence only R script is printed here. 
+
+# Read all the files in the directory
+setwd('path\to\files.txt')
+filenames<-list.files(pattern = "*.txt")
+table_list = lapply (filenames,function(x) read.table(x,header =T, sep="\t"))
+
+# Above scripts will generate a large list with the file
+
+install.packages("ecospace")
+library(ecospace)
+
+data=rbind_listdf(table_list)
+
+# It will create a "data" table in the environment with rows from all files binding to a single table. 
